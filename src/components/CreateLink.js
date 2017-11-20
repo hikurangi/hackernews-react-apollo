@@ -46,6 +46,7 @@ class CreateLink extends Component {
       }
     })
   }
+
 }
 
 const CREATE_LINK_MUTATION = gql`

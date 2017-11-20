@@ -9,8 +9,5 @@
     "graphcool-lib": "^0.1.0",
     "graphql-request": "^1.4.0",
     "validator": "^9.0.0"
-  },
-  "devDependencies": {
-    "eslint-config-standard-flow": "^1.0.1"
   }
 }

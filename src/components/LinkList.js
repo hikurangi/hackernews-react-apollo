@@ -4,6 +4,10 @@ import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 class LinkList extends Component {
+
+  componentDidMount() {
+    this._subscribeToNewLinks()
+  }
   _subscribeToNewLinks = () => {
     this.props.allLinksQuery.subscribeToMore({
       document: gql `
@@ -30,8 +34,16 @@ class LinkList extends Component {
         }
       }
     `,
-      updateQuery: (previous, {subscriptionData}) => {
-        // ... you'll implement this in a bit
+      updateQuery: (previous, { subscriptionData }) => {
+        const newAllLinks = [
+          subscriptionData.Link.node,
+          ...previous.allLinks
+        ]
+        const result = {
+          ...previous,
+          allLinks: newAllLinks
+        }
+        return result
       }
     })
   }

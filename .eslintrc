@@ -1,0 +1,8 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["react", "standard", "standard-flow"],
+
+  "rules": {
+    "object-curly-spacing": ["error", "always"],
+  }
+}

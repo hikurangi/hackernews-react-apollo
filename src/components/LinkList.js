@@ -110,24 +110,34 @@ class LinkList extends Component {
 
   render() {
 
-    // 1
     if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
       return <div>Loading</div>
     }
 
-    // 2
     if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
       return <div>Error</div>
     }
 
-    // 3
-    const linksToRender = this.props.allLinksQuery.allLinks
+    const isNewPage = this.props.location.pathname.includes('new')
+    const linksToRender = this._getLinksToRender(isNewPage)
+    const page = parseInt(this.props.match.params.page, 10)
 
     return (
       <div>
-        {linksToRender.map((link, index) => (<Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} index={index} link={link}/>))}
+        <div>
+          {linksToRender.map((link, index) => (
+              <Link key={link.id} index={page ? (page - 1) * LINKS_PER_PAGE + index : index} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
+          ))}
+        </div>
+        {isNewPage &&
+        <div className='flex ml4 mv3 gray'>
+          <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
+          <div className='pointer' onClick={() => this._nextPage()}>Next</div>
+        </div>
+        }
       </div>
     )
+
   }
 
 }

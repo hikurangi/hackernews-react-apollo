@@ -2,15 +2,13 @@
 # based on which the GraphQL API is generated
 
 type Link @model {
-  id: ID! @isUnique # required system field (read-only)
-  createdAt: DateTime! # optional system field (read-only)
-  updatedAt: DateTime! # optional system field (read-only)
-
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   description: String!
   url: String!
-
+  postedBy: User @relation(name: "UsersLinks")
   # Uncomment below - you can declare relations between models like this
-
   # posts: [Post!]! @relation(name: "UserPosts")
 }
 

@@ -117,6 +117,22 @@ class LinkList extends Component {
     return rankedLinks
   }
 
+  _nextPage = () => {
+    const page = parseInt(this.props.match.params.page, 10)
+    if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
+      const nextPage = page + 1
+      this.props.history.push(`/new/${nextPage}`)
+    }
+  }
+
+  _previousPage = () => {
+    const page = parseInt(this.props.match.params.page, 10)
+    if (page > 1) {
+      const previousPage = page - 1
+      this.props.history.push(`/new/${previousPage}`)
+    }
+  }
+
   render() {
 
     if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {

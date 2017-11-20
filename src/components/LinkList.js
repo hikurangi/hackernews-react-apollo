@@ -132,26 +132,28 @@ class LinkList extends Component {
 }
 
 // 1
-export const ALL_LINKS_QUERY = gql `
-  # 2
-  query AllLinksQuery {
-    allLinks {
-      id
-      createdAt
-      url
-      description
-      postedBy {
+export const ALL_LINKS_QUERY = gql`
+  query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
+      allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
         id
-        name
-      }
-      votes {
-        id
-        user {
+        createdAt
+        url
+        description
+        postedBy {
           id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
         }
       }
+      _allLinksMeta {
+        count
+      }
     }
-  }
 `
 
 // 3

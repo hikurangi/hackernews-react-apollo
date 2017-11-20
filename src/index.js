@@ -33,7 +33,7 @@ const httpLinkWithAuthToken = middlewareAuthLink.concat(httpLink)
 
 // 3
 const wsLink = new WebSocketLink({
-  uri: `__SUBSCRIPTION_API_ENDPOINT__`,
+  uri: `wss://subscriptions.graph.cool/v1/cja7gfp1i0hta0164bn0uomy0`,
   options: {
     reconnect: true,
     connectionParams: {

@@ -31,7 +31,13 @@ class Search extends Component {
   }
 
   _executeSearch = async () => {
-    // ... you'll implement this in a bit
+    const { searchText } = this.state
+    const result = await this.props.client.query({
+      query: ALL_LINKS_SEARCH_QUERY,
+      variables: { searchText }
+    })
+    const links = result.data.allLinks
+    this.setState({ links })
   }
 
 }

@@ -2,8 +2,5 @@
   "name": "gql-react-apollo-server",
   "version": "1.0.0",
   "description": "My Graphcool Service",
-  "dependencies": {
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
-  }
+  "dependencies": {}
 }

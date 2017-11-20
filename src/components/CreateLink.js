@@ -38,9 +38,14 @@ class CreateLink extends Component {
   }
 
   _createLink = async () => {
-    // ... you'll implement this in a bit
+    const { description, url } = this.state
+    await this.props.createLinkMutation({
+      variables: {
+        description,
+        url
+      }
+    })
   }
-
 }
 
 const CREATE_LINK_MUTATION = gql`

@@ -131,7 +131,6 @@ class LinkList extends Component {
 
 }
 
-// 1
 export const ALL_LINKS_QUERY = gql`
   query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
       allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
@@ -156,5 +155,16 @@ export const ALL_LINKS_QUERY = gql`
     }
 `
 
-// 3
-export default graphql(ALL_LINKS_QUERY, {name: 'allLinksQuery'})(LinkList) // graphql wraps the LinkList in this IIFE, providing props.allLinksQuery from the store
+export default graphql(ALL_LINKS_QUERY, {
+  name: 'allLinksQuery',
+  options: (ownProps) => {
+    const page = parseInt(ownProps.match.params.page, 10)
+    const isNewPage = ownProps.location.pathname.includes('new')
+    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
+    const first = isNewPage ? LINKS_PER_PAGE : 100
+    const orderBy = isNewPage ? 'createdAt_DESC' : null
+    return {
+      variables: { first, skip, orderBy }
+    }
+  }
+})(LinkList)

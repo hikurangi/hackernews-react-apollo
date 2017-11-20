@@ -4,6 +4,7 @@ import Header from './Header'
 import Login from './Login'
 import LinkList from './LinkList'
 import CreateLink from './CreateLink'
+import Search from './Search'
 
 class App extends Component {
   render() {

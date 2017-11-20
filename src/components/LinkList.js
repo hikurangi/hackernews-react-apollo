@@ -7,7 +7,9 @@ class LinkList extends Component {
 
   componentDidMount() {
     this._subscribeToNewLinks()
+    this._subscribeToNewVotes()
   }
+
   _subscribeToNewLinks = () => {
     this.props.allLinksQuery.subscribeToMore({
       document: gql `
@@ -34,11 +36,56 @@ class LinkList extends Component {
         }
       }
     `,
-      updateQuery: (previous, { subscriptionData }) => {
+      updateQuery: (previous, {subscriptionData}) => {
         const newAllLinks = [
-          subscriptionData.Link.node,
-          ...previous.allLinks
+          subscriptionData.Link.node, ...previous.allLinks
         ]
+        const result = {
+          ...previous,
+          allLinks: newAllLinks
+        }
+        return result
+      }
+    })
+  }
+
+  _subscribeToNewVotes = () => {
+    this.props.allLinksQuery.subscribeToMore({
+      document: gql `
+      subscription {
+        Vote(filter: {
+          mutation_in: [CREATED]
+        }) {
+          node {
+            id
+            link {
+              id
+              url
+              description
+              createdAt
+              postedBy {
+                id
+                name
+              }
+              votes {
+                id
+                user {
+                  id
+                }
+              }
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    `,
+      updateQuery: (previous, {subscriptionData}) => {
+        const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.Vote.node.link.id)
+        const link = subscriptionData.Vote.node.link
+        const newAllLinks = previous.allLinks.slice()
+        newAllLinks[votedLinkIndex] = link
         const result = {
           ...previous,
           allLinks: newAllLinks

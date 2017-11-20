@@ -11,7 +11,10 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { GC_AUTH_TOKEN } from './constants'
-import { ApolloLink } from 'apollo-client-preset'
+import { ApolloLink, split } from 'apollo-client-preset'
+import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
+
 // 2
 const httpLink = new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cja7gfp1i0hta0164bn0uomy0' })
 

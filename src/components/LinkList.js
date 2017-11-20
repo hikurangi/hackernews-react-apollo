@@ -45,4 +45,4 @@ const ALL_LINKS_QUERY = gql`
 `
 
 // 3
-export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList)
+export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList) // graphql wraps the LinkList here, providing props.allLinksQuery from the store

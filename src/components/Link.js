@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { GC_USER_ID } from '../constants'
-import { timeDifferenceForDate } from '../utils'
-import { graphql } from 'react-apollo'
+import React, {Component} from 'react'
+import {GC_USER_ID} from '../constants'
+import {timeDifferenceForDate} from '../utils'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 class Link extends Component {
@@ -15,14 +15,19 @@ class Link extends Component {
           {userId && <div className='ml1 gray f11' onClick={() => this._voteForLink()}>▲</div>}
         </div>
         <div className='ml1'>
-          <div>{this.props.link.description} ({this.props.link.url})</div>
-          <div className='f6 lh-copy gray'>{this.props.link.votes.length} votes | by {this.props.link.postedBy ? this.props.link.postedBy.name : 'Unknown'} {timeDifferenceForDate(this.props.link.createdAt)}</div>
+          <div>{this.props.link.description}
+            ({this.props.link.url})</div>
+          <div className='f6 lh-copy gray'>{this.props.link.votes.length}
+            votes | by {this.props.link.postedBy
+              ? this.props.link.postedBy.name
+              : 'Unknown'}
+            {timeDifferenceForDate(this.props.link.createdAt)}</div>
         </div>
       </div>
     )
   }
 
-  _voteForLink = async () => {
+  _voteForLink = async() => {
     const userId = localStorage.getItem(GC_USER_ID)
     const voterIds = this.props.link.votes.map(vote => vote.user.id)
     if (voterIds.includes(userId)) {
@@ -35,13 +40,16 @@ class Link extends Component {
       variables: {
         userId,
         linkId
+      },
+      update: (store, {data: { createVote } }) => {
+        this.props.updateStoreAfterVote(store, createVote, linkId)
       }
     })
   }
 
 }
 
-const CREATE_VOTE_MUTATION = gql`
+const CREATE_VOTE_MUTATION = gql `
   mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
     createVote(userId: $userId, linkId: $linkId) {
       id
@@ -60,6 +68,4 @@ const CREATE_VOTE_MUTATION = gql`
   }
 `
 
-export default graphql(CREATE_VOTE_MUTATION, {
-  name: 'createVoteMutation'
-})(Link)
+export default graphql(CREATE_VOTE_MUTATION, {name: 'createVoteMutation'})(Link)

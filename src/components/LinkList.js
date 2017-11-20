@@ -108,6 +108,15 @@ class LinkList extends Component {
     store.writeQuery({query: ALL_LINKS_QUERY, data})
   }
 
+  _getLinksToRender = (isNewPage) => {
+    if (isNewPage) {
+      return this.props.allLinksQuery.allLinks
+    }
+    const rankedLinks = this.props.allLinksQuery.allLinks.slice()
+    rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
+    return rankedLinks
+  }
+
   render() {
 
     if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {

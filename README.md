@@ -4,7 +4,7 @@ The [Hackernews clone from howtographql](https://www.howtographql.com/react-apol
 
 ### to use...
 
-1. From the command line, `git clone https://github.com/hikurangi/hackernews-react-apollo.gits && cd hackernews-react-apollo`
+1. From the command line, `git clone https://github.com/hikurangi/hackernews-react-apollo.git && cd hackernews-react-apollo`
 
 2. `yarn` or `npm i`
 

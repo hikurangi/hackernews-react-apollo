@@ -8,6 +8,12 @@ The [Hackernews clone from howtographql](https://www.howtographql.com/react-apol
 
 2. `yarn` or `npm i`
 
-3. `yarn start` or `npm start`
+3. `cd server`
 
-4. Visit http://localhost:3000 to try it out.
+4. `yarn` or `npm i`
+
+5. `cd ..`
+
+6. `yarn start` or `npm start`
+
+7. Visit http://localhost:3000 to try it out.
